@@ -4,7 +4,7 @@ const app = express()
 const cors = require('cors')
 const path = require('path')
 app.use(express.json())
-app.use(cors())
+app.use(cors({ origin: '*' }))
 const PORT = process.env.PORT || 4000
 
 app.use(require('./backend/routes/notas.routes'))
