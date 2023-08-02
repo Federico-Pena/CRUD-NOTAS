@@ -8,8 +8,8 @@ app.use(cors({ origin: '*' }))
 const PORT = process.env.PORT || 4000
 
 app.use(require('./backend/routes/notas.routes'))
-app.use(express.static(path.join(__dirname, '/backend', '/dist')))
-app.get('*', (req, res) => {
+app.use(express.static(path.resolve('./backend', 'dist')))
+app.use('*', (req, res) => {
 	res.sendFile(path.resolve('./backend', 'dist', 'index.html'))
 })
 
