@@ -1,0 +1,35 @@
+#root {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+main {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	overflow: auto;
+	overflow-x: hidden;
+	max-width: 1000px;
+	margin: auto;
+	scroll-behavior: smooth;
+}
+main::-webkit-scrollbar {
+	width: 0;
+}
+main h1 {
+	font-size: 32px;
+}
+
+.notasContainer {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	gap: 2rem;
+}

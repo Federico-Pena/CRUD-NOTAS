@@ -1,0 +1,70 @@
+.containerNota {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	padding: 0.5rem;
+	gap: 0.5rem;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	min-height: 140px;
+	position: relative;
+}
+.tituloYbotonesNota {
+	display: flex;
+	justify-content: flex-end;
+	gap: 1rem;
+	width: 100%;
+}
+.tituloYbotonesNota .btnBorrar,
+.btnEditar {
+	width: 2rem;
+	height: 2rem;
+	background-color: #1a1a1a;
+	border: 1px solid transparent;
+	border-radius: 8px;
+	transition: border-color, background-color 0.5s ease;
+	cursor: pointer;
+	color: #ccc;
+}
+.tituloYbotonesNota .btnBorrar {
+	position: absolute;
+	top: 0.2rem;
+	right: 0.2rem;
+}
+.tituloYbotonesNota .btnEditar {
+	position: absolute;
+	bottom: 0.2rem;
+	right: 0.2rem;
+}
+
+.tituloYbotonesNota .btnEditar:hover {
+	border-color: rgb(255, 255, 255);
+	background-color: green;
+}
+.tituloYbotonesNota .btnBorrar:hover {
+	background-color: red;
+	border-color: rgb(255, 255, 255);
+}
+
+.tituloYbotonesNota h3 {
+	flex: auto;
+	text-align: center;
+}
+.contenido {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+}
+
+.contenido p {
+	width: 100%;
+	padding: 1rem 0;
+}
+
+.fechas {
+	display: flex;
+	gap: 2rem;
+	width: 100%;
+}
