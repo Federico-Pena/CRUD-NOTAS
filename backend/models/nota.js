@@ -1,12 +1,12 @@
-const mongoose = require('mongoose')
-const { Schema } = require('mongoose')
+import { model, Schema } from 'mongoose'
 const NotasSchema = new Schema(
-	{
-		titulo: String,
-		contenido: String,
-	},
-	{
-		timestamps: true,
-	}
+  {
+    titulo: { type: String, require: true },
+    contenido: { type: String, require: true },
+    completada: { type: Boolean, default: false }
+  },
+  {
+    timestamps: true
+  }
 )
-module.exports = mongoose.model('notas', NotasSchema)
+export default model('Notas', NotasSchema)

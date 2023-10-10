@@ -1,0 +1,62 @@
+.formContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+.formulario {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  height: 100%;
+  min-height: 300px;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid rgb(199, 198, 198);
+  gap: 1rem;
+  border-radius: 0.3rem;
+  letter-spacing: 1px;
+}
+.formulario .headerFormulario h2 {
+  width: 100%;
+  text-align: center;
+}
+.formulario .mainFormulario {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1rem;
+  width: 100%;
+  flex: auto;
+}
+.mainFormulario .errors {
+  color: red;
+}
+.mainFormulario .sectionFormulario {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+.sectionFormulario .labelForm {
+  width: 100%;
+}
+.sectionFormulario .titulo {
+  border-radius: 0.3rem;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+}
+.sectionFormulario .contenido {
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+  border-radius: 0.3rem;
+  border: none;
+  resize: none;
+}
+.sectionFormulario .errors {
+  color: red;
+  align-self: flex-end;
+}

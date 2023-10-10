@@ -1,57 +1,74 @@
-const express = require('express')
-const router = express.Router()
-const NotasSchema = require('../models/nota')
+import { Router } from 'express'
+const notasRoutes = Router()
+import NotasSchema from '../models/nota.js'
 
 ///////////////  OBTENER TODOS LAS NOTAS  /////////////////
-router.get('/api/notas', async (req, res) => {
-	await NotasSchema.find().then((data) => {
-		res.json(data)
-	})
+notasRoutes.get('/api/notas', async (req, res) => {
+  try {
+    const notas = await NotasSchema.find().sort({ createdAt: -1 })
+    res.json({ data: notas })
+  } catch (error) {
+    res.status(500).json({ error: 'Ocurrió un error al obtener las notas' })
+  }
 })
 ///////////////  OBTENER UNA NOTA  /////////////////
-router.get('/api/nota/:id', async (req, res) => {
-	const id = req.params.id
-	await NotasSchema.findById(id).then((data) => {
-		res.json(data)
-	})
+notasRoutes.get('/api/nota/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const nota = await NotasSchema.findById(id)
+    if (!nota) {
+      return res.status(404).json({ error: 'Nota no encontrada' })
+    }
+    res.json({ data: nota })
+  } catch (error) {
+    return res.status(500).json({ error: 'Ocurrió un error al obtener la nota' })
+  }
 })
 ///////////////  GUARDAR NOTA  /////////////////
-router.post('/api/notas', async (req, res) => {
-	const { titulo, contenido } = req.body
-	try {
-		const nota = new NotasSchema({ titulo, contenido })
-		await nota.save()
-		res.status(200).json(nota)
-	} catch (error) {
-		res.status(400).json(error.message)
-	}
+notasRoutes.post('/api/notas', async (req, res) => {
+  try {
+    const { titulo, contenido } = req.body
+    const nota = new NotasSchema({ titulo, contenido })
+    const response = await nota.save()
+    if (response) {
+      return res.status(200).json({ data: response })
+    } else {
+      throw new Error('error')
+    }
+  } catch (error) {
+    return res.status(500).json({ error: 'Ocurrió un error al guardar la nota' })
+  }
 })
 ///////////////  ACTUALIZAR NOTA  /////////////////
-router.put('/api/notas/:id', async (req, res) => {
-	const id = req.params.id
-	const { titulo, contenido } = req.body
-	const notaEditada = { titulo, contenido }
-	try {
-		await NotasSchema.findByIdAndUpdate(id, notaEditada, {
-			new: true,
-		}).then((data) => {
-			res.status(200).json(data)
-		})
-	} catch (error) {
-		res.status(400).json(error.message)
-	}
+notasRoutes.put('/api/notas/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const { titulo, contenido, completada } = req.body
+    const notaEditada = { titulo, contenido, completada }
+    const nota = await NotasSchema.findByIdAndUpdate(id, notaEditada, {
+      new: true
+    })
+    if (!nota) {
+      return res.status(404).json({ error: 'Nota para editar no encontrada' })
+    }
+    return res.status(200).json({ data: nota })
+  } catch (error) {
+    return res.status(500).json({ error: 'Ocurrió un error al editar la nota' })
+  }
 })
 ///////////////  BORRAR NOTA  /////////////////
 
-router.delete('/api/notas/:id', async (req, res) => {
-	const id = req.params.id
-	try {
-		await NotasSchema.findOneAndDelete(id).then((data) => {
-			res.status(200).json(data)
-		})
-	} catch (error) {
-		res.status(400).json(error.message)
-	}
+notasRoutes.delete('/api/notas/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const nota = await NotasSchema.findOneAndDelete(id)
+    if (!nota) {
+      return res.status(404).json({ error: 'Nota para eliminar no encontrada' })
+    }
+    return res.status(200).json({ data: nota })
+  } catch (error) {
+    return res.status(500).json({ error: 'Ocurrió un error al eliminar la nota' })
+  }
 })
 
-module.exports = router
+export default notasRoutes

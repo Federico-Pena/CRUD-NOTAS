@@ -1,18 +1,19 @@
-require('./backend/database.js')
-const express = require('express')
+import './backend/database.js'
+import notasRoutes from './backend/routes/notas.routes.js'
+import express from 'express'
 const app = express()
-const cors = require('cors')
-const path = require('path')
+import cors from 'cors'
+import { resolve } from 'path'
 app.use(express.json())
-app.use(cors({ origin: '*' }))
+app.use(cors({ origin: ['http://localhost:5173', 'https://crud-notas.vercel.app'] }))
 const PORT = process.env.PORT || 4000
 
-app.use(require('./backend/routes/notas.routes'))
-app.use(express.static(path.resolve('./backend', 'dist')))
+app.use(notasRoutes)
+app.use(express.static(resolve('./frontend', 'dist')))
 app.use('*', (req, res) => {
-	res.sendFile(path.resolve('./backend', 'dist', 'index.html'))
+  res.sendFile(resolve('./backend', 'dist', 'index.html'))
 })
 
 app.listen(PORT, () => {
-	console.log(`http://localhost:${PORT}/`)
+  console.log(`http://localhost:${PORT}/`)
 })

@@ -1,0 +1,100 @@
+.containerNota {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  min-height: 140px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  animation: aparecer 1s ease forwards;
+  opacity: 1;
+  view-timeline-name: --revealing-card;
+  view-timeline-axis: y;
+  animation-name: show;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+  animation-timeline: --revealing-card;
+  animation-range: entry 5% cover 20%;
+}
+.containerNota.completada {
+  color: rgba(255, 255, 255, 0.315);
+  text-decoration: line-through;
+}
+.tituloYbotonesNota {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+.tituloYbotonesNota h3 {
+  flex: auto;
+}
+.tituloYbotonesNota .btnBorrar,
+.btnEditar {
+  width: 2rem;
+  height: 2rem;
+  background-color: #1a1a1a;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: border-color, background-color 0.5s ease;
+  cursor: pointer;
+  color: #ccc;
+}
+.tituloYbotonesNota .btnBorrar {
+  top: 0.2rem;
+  right: 0.2rem;
+}
+.tituloYbotonesNota .btnEditar {
+  bottom: 0.2rem;
+  right: 0.2rem;
+}
+
+.tituloYbotonesNota .btnEditar:hover {
+  border-color: rgb(255, 255, 255);
+  background-color: green;
+}
+.tituloYbotonesNota .btnBorrar:hover {
+  background-color: red;
+  border-color: rgb(255, 255, 255);
+}
+
+.contenido {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.contenido p {
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.fechas {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-300px) scaleX(0);
+  }
+}
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: scale(0.25) translateX(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}

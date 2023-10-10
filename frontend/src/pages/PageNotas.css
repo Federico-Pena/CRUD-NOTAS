@@ -1,0 +1,20 @@
+.mainPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: auto;
+}
+.mainPage h1,
+h2 {
+  width: 100%;
+  text-align: center;
+}
+.notasContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+  padding: 1rem;
+}
