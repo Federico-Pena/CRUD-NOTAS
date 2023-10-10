@@ -110,7 +110,7 @@ export const PageNotas = () => {
           ) : null}
 
           {verCompletadas &&
-            notasCompletadas.length &&
+            notasCompletadas.length > 0 &&
             notasCompletadas.map((nota) => {
               return (
                 <Nota
