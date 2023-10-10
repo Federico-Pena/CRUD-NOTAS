@@ -103,11 +103,11 @@ export const PageNotas = () => {
           ) : (
             <h2>No hay Notas</h2>
           )}
-          {notasCompletadas.length > 0 && (
+          {notasCompletadas.length > 0 ? (
             <button type='button' onClick={() => setVerCompletadas(!verCompletadas)}>
               {verCompletadas ? 'Ocultar Completadas' : 'Mostrar Completadas'}
             </button>
-          )}
+          ) : null}
 
           {verCompletadas &&
             notasCompletadas.length &&
