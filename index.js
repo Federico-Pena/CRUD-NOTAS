@@ -4,8 +4,12 @@ import express from 'express'
 const app = express()
 import cors from 'cors'
 import { resolve } from 'path'
+const optionsCors = {
+  origin: ['https://crud-notas.vercel.app', 'http://localhost:5173'],
+  methods: ['GET', 'PUT', 'POST', 'DELETE']
+}
 app.use(express.json())
-app.use(cors({ origin: ['http://localhost:5173', 'https://crud-notas.vercel.app'] }))
+app.use(cors(optionsCors))
 const PORT = process.env.PORT || 4000
 
 app.use(notasRoutes)
