@@ -12,15 +12,13 @@ const optionsCors = {
   origin: ['https://crud-notas.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'PUT', 'POST', 'DELETE']
 }
+app.disable('x-powered-by')
 app.use(express.json())
 app.use(cors(optionsCors))
-app.use(userRoutes)
 app.use(express.static(resolve('./frontend', 'dist')))
+app.use(userRoutes)
 app.use(authMiddleware)
 app.use(notasRoutes)
-app.use('*', (req, res) => {
-  res.sendFile(resolve('./backend', 'dist', 'index.html'))
-})
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}/`)

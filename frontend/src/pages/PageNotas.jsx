@@ -87,7 +87,7 @@ export const PageNotas = () => {
     <>
       {mensaje && <Toast mensaje={mensaje} setMensaje={setMensaje} />}
       <main className='mainPage'>
-        <h1>{data[0] ? `Notas de ${data[0].nombreUsuario}` : ''}</h1>
+        <h2>{data[0] ? `Notas de ${data[0].nombreUsuario}` : 'Tus Notas'}</h2>
         <div className='formContainer'>
           {!formEdit && (
             <button

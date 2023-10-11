@@ -1,22 +1,24 @@
 import { useContext } from 'react'
 import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { UserContext } from './Context/UserContext'
 import { FormLoginRegister } from './components/FormLoginRegister/FormLoginRegister'
 import { PageNotas } from './pages/PageNotas'
+import Dashboard from './pages/Transactions/Transactions'
+import { Navbar } from './components/Navbar/Navbar'
 function App() {
-  const { user, logoutUser } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   return (
-    <div className='mainApp'>
-      {!user ? (
-        <FormLoginRegister />
-      ) : (
-        <button className='btnLogOut' onClick={logoutUser}>
-          LogOut
-        </button>
-      )}
-      {user ? <PageNotas /> : null}
-    </div>
+    <main className='mainApp'>
+      <BrowserRouter>
+        {user ? <Navbar /> : null}
+        <Routes>
+          <Route path={'/'} element={user ? <PageNotas /> : <FormLoginRegister />} />
+          <Route path={'/Ganancias'} element={user ? <Dashboard /> : <FormLoginRegister />} />
+        </Routes>
+      </BrowserRouter>
+    </main>
   )
 }
 

@@ -14,10 +14,4 @@ html::-webkit-scrollbar {
   flex-direction: column;
   position: relative;
   height: 100%;
-  padding: 5rem 0;
-}
-.btnLogOut {
-  position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
 }

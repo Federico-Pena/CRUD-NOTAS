@@ -1,5 +1,5 @@
 .containerNota {
-  background-color: #242424;
+  background-color: #363636;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
@@ -17,8 +17,8 @@
   letter-spacing: 1px;
 }
 .containerNota.completada {
-  background-color: #555;
   text-decoration: line-through;
+  filter: opacity(0.2);
 }
 .tituloYbotonesNota {
   display: flex;
@@ -30,6 +30,9 @@
   text-align: center;
   text-transform: capitalize;
 }
+.tituloYbotonesNota .completadaCheck {
+  cursor: pointer;
+}
 .btnEditar,
 .btnBorrar {
   cursor: pointer;
@@ -39,10 +42,13 @@
   transition: color 0.3s ease-in-out;
 }
 
-.btnEditar:hover,
-.btnBorrar:hover {
-  color: #00bcd4; /* Cambia el color al pasar el ratón sobre los botones */
+.btnEditar:hover {
+  color: #00bcd4;
 }
+.btnBorrar:hover {
+  color: #d40000;
+}
+
 .contenido {
   margin-top: 8px;
   flex: auto;

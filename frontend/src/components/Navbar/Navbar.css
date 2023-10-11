@@ -1,0 +1,209 @@
+body.light .headerNav {
+  background-color: #4f4f4f;
+}
+body.dark .headerNav {
+  background-color: #ffffff;
+  color: #4f4f4f;
+}
+body.dark .liA {
+  color: #4f4f4f;
+}
+body.dark .liA:hover {
+  color: rgba(56, 52, 52, 0.541);
+}
+
+body.dark .liA:after {
+  background-color: #333;
+}
+.headerNav {
+  background-color: #4f4f4f;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding: 1rem;
+  gap: 2rem;
+}
+.headerNav .logoNav {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.nav {
+  width: 100%;
+  display: flex;
+  max-width: 900px;
+}
+
+.nav .ulNav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  width: 100%;
+}
+.ulNav .liA {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s ease;
+  position: relative;
+  font-family: system-ui, sans-serif, serif;
+  font-size: 1.2rem;
+}
+.ulNav .liA:hover {
+  color: #fff;
+}
+.ulNav .liA:hover::after {
+  width: 100%;
+}
+.ulNav .liA:after {
+  content: '';
+  background-color: #fff;
+  position: absolute;
+  bottom: -0.2rem;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  transition: width 0.3s ease;
+}
+
+.divMenu {
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.divMenu .burger {
+  display: none;
+  pointer-events: none;
+}
+.divMenu.open {
+  animation: menuOpen 0.3s ease forwards;
+}
+.divMenu.closed {
+  animation: menuClosed 0.3s ease forwards;
+}
+@media only screen and (min-width: 680px) {
+  .divMenu {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .headerNav .nav {
+    width: 100%;
+    max-height: 100vh;
+    position: fixed;
+    overflow: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.795);
+    backdrop-filter: blur(10px);
+    transform-origin: right top;
+    transform: scaleX(0);
+    transition: 0.8s
+      linear(
+        0 0%,
+        0 2.27%,
+        0.02 4.53%,
+        0.04 6.8%,
+        0.06 9.07%,
+        0.1 11.33%,
+        0.14 13.6%,
+        0.25 18.15%,
+        0.39 22.7%,
+        0.56 27.25%,
+        0.77 31.8%,
+        1 36.35%,
+        0.89 40.9%,
+        0.85 43.18%,
+        0.81 45.45%,
+        0.79 47.72%,
+        0.77 50%,
+        0.75 52.27%,
+        0.75 54.55%,
+        0.75 56.82%,
+        0.77 59.1%,
+        0.79 61.38%,
+        0.81 63.65%,
+        0.85 65.93%,
+        0.89 68.2%,
+        1 72.7%,
+        0.97 74.98%,
+        0.95 77.25%,
+        0.94 79.53%,
+        0.94 81.8%,
+        0.94 84.08%,
+        0.95 86.35%,
+        0.97 88.63%,
+        1 90.9%,
+        0.99 93.18%,
+        0.98 95.45%,
+        0.99 97.73%,
+        1 100%
+      );
+  }
+  .headerNav .nav.nav_open {
+    transform: scaleX(1);
+  }
+  .nav::-webkit-scrollbar {
+    width: 0;
+  }
+  .nav .ulNav {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+  }
+  .headerNav .logo-principal {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  .divMenu .burger {
+    display: block;
+  }
+  body.dark .burger {
+    color: #333;
+  }
+  body.dark .divMenu.open .burger {
+    color: #fff;
+  }
+  body.dark .liA {
+    color: #ffffff;
+  }
+  body.dark .liA:hover {
+    color: rgba(255, 255, 255, 0.521);
+  }
+
+  body.dark .liA:after {
+    background-color: rgba(255, 255, 255, 0.521);
+  }
+}
+@keyframes menuOpen {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes menuClosed {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -45,10 +45,10 @@ function Nota({ nota, openForm, quitarBorrada, marcarCompletada }) {
       <article className={`containerNota ${nota.completada ? 'completada' : ''}`}>
         <header className='tituloYbotonesNota'>
           <input
+            className='completadaCheck'
             type='checkbox'
             defaultChecked={nota.completada}
             name='completada'
-            id=''
             onChange={(e) => editarCompletada(e.target.checked)}
           />
           <h3>{nota.titulo}</h3>

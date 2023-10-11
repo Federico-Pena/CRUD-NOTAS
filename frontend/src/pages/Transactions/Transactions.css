@@ -1,0 +1,118 @@
+.mainDashboard {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mainDashboard .titleDashboard {
+  color: #ffffff;
+}
+
+.mainDashboard .transactionArticle {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 900px;
+  width: 100%;
+  margin: auto;
+}
+
+.transactionArticle .titleTransaction {
+  color: #ffffff;
+}
+
+.transactionArticle .listTransactions {
+  list-style-type: none;
+  padding: 1rem 0;
+  border-radius: 0.5rem;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-height: 70vh;
+  overflow: auto;
+  position: relative;
+}
+.transactionArticle .listTransactions::-webkit-scrollbar {
+  width: 0;
+}
+.listTransactions .elementTransactions {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #363636;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  view-timeline-name: --revealing-card;
+  view-timeline-axis: block;
+  animation-name: showAnimation;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+  animation-timeline: --revealing-card;
+  animation-range: entry 0% 10%;
+}
+.elementTransactions.top {
+  background-color: #1a1a1a;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.elementTransactions .mainTransaction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.mainTransaction svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 0.5rem;
+}
+
+.mainTransaction.ingreso svg {
+  background-color: #008000;
+}
+.mainTransaction.gasto svg {
+  background-color: #800000;
+  transform: rotate(180deg);
+}
+.elementTransactions footer {
+  color: #888888;
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+.elementTransactions .balance {
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.balance .positivo {
+  color: #008000;
+}
+.balance .negativo {
+  color: #800000;
+}
+@keyframes showAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(100%) scale(0);
+  }
+  50% {
+    opacity: 0.5;
+
+    transform: translate(0) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+
+    transform: translate(0) scale(1);
+  }
+}
