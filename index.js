@@ -15,9 +15,9 @@ const optionsCors = {
 app.use(express.json())
 app.use(cors(optionsCors))
 app.use(userRoutes)
+app.use(express.static(resolve('./frontend', 'dist')))
 app.use(authMiddleware)
 app.use(notasRoutes)
-app.use(express.static(resolve('./frontend', 'dist')))
 app.use('*', (req, res) => {
   res.sendFile(resolve('./backend', 'dist', 'index.html'))
 })
