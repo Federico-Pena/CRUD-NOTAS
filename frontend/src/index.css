@@ -35,6 +35,6 @@ button {
   cursor: pointer;
 }
 button:hover {
-  transform: scale(1.05);
+  transform: scale(0.97);
   border-color: #eee;
 }

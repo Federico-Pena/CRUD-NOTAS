@@ -1,12 +1,19 @@
 import { model, Schema } from 'mongoose'
-const NotasSchema = new Schema(
+const Nota = new Schema(
   {
     titulo: { type: String, require: true },
     contenido: { type: String, require: true },
-    completada: { type: Boolean, default: false }
+    completada: { type: Boolean, default: false },
+    usuario: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    nombreUsuario: { type: String }
   },
   {
     timestamps: true
   }
 )
-export default model('Notas', NotasSchema)
+const NotasSchema = model('Notas', Nota)
+export default NotasSchema

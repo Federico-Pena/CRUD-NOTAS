@@ -1,0 +1,70 @@
+.toast-show {
+  animation: toastIn 0.5s ease forwards;
+  pointer-events: auto;
+}
+.toast-hide {
+  animation: toastOut 0.5s ease forwards;
+  pointer-events: none;
+}
+
+.toast-hide,
+.toast-show {
+  position: fixed;
+  bottom: 2rem;
+  right: 0rem;
+  transition: transform 0.3s ease;
+  max-width: 350px;
+  width: auto;
+
+  z-index: 9;
+}
+
+.toast-hide,
+.toast-show .my-toast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline: 1px solid #000;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  color: #000;
+}
+
+.my-toast .toastContent {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  max-width: 350px;
+}
+
+.toastContent .toastText {
+  text-transform: capitalize;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem;
+}
+.toastContent .progress-bar {
+  height: 5px;
+  text-align: start;
+  background-color: #09f;
+  width: 0%;
+  transition: width 0.5s linear;
+}
+@keyframes toastOut {
+  to {
+    transform: translateX(calc(100% + 2rem)) rotateZ(90deg);
+  }
+}
+@keyframes toastIn {
+  from {
+    transform: translateX(calc(100% + 2rem)) rotateZ(90deg);
+  }
+  to {
+    transform: translateX(0) rotateZ(0deg);
+  }
+}

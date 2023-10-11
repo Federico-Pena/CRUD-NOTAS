@@ -1,26 +1,27 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './Formulario.css'
 import { postNota } from '../../services/postNota'
 import useForm from '../../Hooks/Formulario/useForm'
-
+import { UserContext } from '../../Context/UserContext'
+const initialValues = {
+  titulo: '',
+  contenido: ''
+}
+const validationRules = {
+  titulo: {
+    required: true,
+    message: 'El titulo es requerido'
+  },
+  contenido: { required: true, message: 'El contenido es requerido' }
+}
 function Formulario({ agregarNuevaNota }) {
   const [error, setError] = useState('')
-  const initialValues = {
-    titulo: '',
-    contenido: ''
-  }
-  const validationRules = {
-    titulo: {
-      required: true,
-      message: 'El titulo es requerido'
-    },
-    contenido: { required: true, message: 'El contenido es requerido' }
-  }
+  const { user } = useContext(UserContext)
+
   const { values, errors, validateForm, handleChange, resetForm } = useForm(
     initialValues,
     validationRules
   )
-
   const submitForm = async (e) => {
     e.preventDefault()
     const res = validateForm()
@@ -31,7 +32,7 @@ function Formulario({ agregarNuevaNota }) {
         contenido: contenido.trim()
       }
       try {
-        const { data, error } = await postNota(nota)
+        const { data, error } = await postNota(nota, user.token)
         if (data) {
           agregarNuevaNota(data)
         } else throw new Error(error)
