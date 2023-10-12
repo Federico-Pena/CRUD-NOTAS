@@ -7,6 +7,7 @@ import FormularioEditar from '../components/Formulario/FormularioEditar'
 import Formulario from '../components/Formulario/Formulario'
 import { ModalContext } from '../Context/ModalContext'
 import { Toast } from '../components/Toast/Toast'
+import { UserContext } from '../Context/UserContext'
 
 export const PageNotas = () => {
   const [notasCompletadas, setNotasCompletadas] = useState([])
@@ -14,14 +15,19 @@ export const PageNotas = () => {
   const [verCompletadas, setVerCompletadas] = useState(false)
   const [formEdit, setFormEdit] = useState(false)
   const [form, setForm] = useState(false)
-
   const [nota, setNota] = useState({})
   const url = '/api/notas'
   const { data, error, loading } = useFetchData(url)
   const { mensaje, setMensaje } = useContext(ModalContext)
+  const { user } = useContext(UserContext)
+
   useEffect(() => {
-    const completadas = data.filter((nota) => nota.completada)
-    const noCompletadas = data.filter((nota) => !nota.completada)
+    const completadas = data.filter(
+      (nota) => nota.tareas.every((tarea) => tarea.tareaCompletada) === true
+    )
+    const noCompletadas = data.filter(
+      (nota) => nota.tareas.every((tarea) => tarea.tareaCompletada) === false
+    )
     setNotasCompletadas(completadas)
     setNotasNoCompletadas(noCompletadas)
   }, [data])
@@ -45,10 +51,11 @@ export const PageNotas = () => {
     const notasFiltradaNoCompletadas = notasNoCompletadas.filter(
       (nota) => nota._id !== notaNueva._id
     )
-    if (notaNueva.completada) {
+    const completada = notaNueva.tareas.every((tarea) => tarea.tareaCompletada) === true
+    if (completada) {
       notasFiltradaCompletadas.push(notaNueva)
     }
-    if (!notaNueva.completada) {
+    if (!completada) {
       notasFiltradaNoCompletadas.push(notaNueva)
     }
     setNotasCompletadas(
@@ -87,7 +94,7 @@ export const PageNotas = () => {
     <>
       {mensaje && <Toast mensaje={mensaje} setMensaje={setMensaje} />}
       <main className='mainPage'>
-        <h2>{data[0] ? `Notas de ${data[0].nombreUsuario}` : 'Tus Notas'}</h2>
+        <h2>{user.username ? `Notas de ${user.username}` : 'Tus Notas'}</h2>
         <div className='formContainer'>
           {!formEdit && (
             <button

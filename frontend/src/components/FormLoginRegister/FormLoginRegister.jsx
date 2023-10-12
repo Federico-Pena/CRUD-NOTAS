@@ -50,7 +50,7 @@ export const FormLoginRegister = () => {
         if (isLogin) {
           if (response.ok) {
             resetForm()
-            loginUser(data.token)
+            loginUser(data)
           } else {
             setMensaje(data.error)
           }

@@ -53,11 +53,27 @@
   margin-top: 8px;
   flex: auto;
 }
+.contenido .tarea {
+  display: flex;
+  padding: 0.5rem;
+  gap: 2rem;
+}
+.contenido .tarea.completada {
+  text-decoration: line-through;
+  filter: opacity(0.2);
+}
+.contenido .tarea .checkTarea {
+  cursor: pointer;
+}
 
+.contenido .tarea p {
+  flex: auto;
+}
 .fechas {
   margin-top: 8px;
   display: flex;
   justify-content: space-between;
+  color: #ccc;
 }
 @keyframes aparecer {
   from {

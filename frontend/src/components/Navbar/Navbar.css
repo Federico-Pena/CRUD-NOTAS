@@ -52,7 +52,6 @@ body.dark .liA:after {
   color: #fff;
   transition: color 0.3s ease;
   position: relative;
-  font-family: system-ui, sans-serif, serif;
   font-size: 1.2rem;
 }
 .ulNav .liA:hover {

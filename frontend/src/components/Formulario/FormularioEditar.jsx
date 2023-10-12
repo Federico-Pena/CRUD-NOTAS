@@ -10,26 +10,38 @@ const validationRules = {
     required: true,
     message: 'El titulo es requerido'
   },
-  contenido: { required: true, message: 'El contenido es requerido' }
+  tareas: { required: true, message: 'El contenido es requerido' }
 }
 function FormularioEditar({ nota, actualizarNotas }) {
   const initialValues = {
     titulo: nota.titulo,
-    contenido: nota.contenido
+    tareas: nota.tareas.map((nota) => nota.tareaTitulo).join('. ')
   }
   const { values, errors, validateForm, handleChange } = useForm(initialValues, validationRules)
   const { user } = useContext(UserContext)
   const { mensaje, setMensaje } = useContext(ModalContext)
+  const [tareasCompletadas, setTareasCompletadas] = useState(
+    nota.tareas.map((tarea) => tarea.tareaCompletada)
+  )
+
+  const handleCheckboxChange = (index) => {
+    const newTareasCompletadas = [...tareasCompletadas]
+    newTareasCompletadas[index] = !newTareasCompletadas[index]
+    setTareasCompletadas(newTareasCompletadas)
+  }
 
   const submitForm = async (e) => {
     e.preventDefault()
     const res = validateForm()
     if (res) {
       const { _id } = nota
-      const { titulo, contenido } = values
+      const { titulo, tareas } = values
       let notaNueva = {
         titulo: titulo.trim(),
-        contenido: contenido.trim()
+        tareas: tareas.split('. ').map((tarea, index) => ({
+          tareaTitulo: tarea.trim(),
+          tareaCompletada: tareasCompletadas[index] || false
+        }))
       }
       try {
         const { data, error } = await putNota(notaNueva, _id, user.token)
@@ -71,20 +83,35 @@ function FormularioEditar({ nota, actualizarNotas }) {
             {errors.titulo && <span className='errors'>{errors.titulo}</span>}
           </section>
           <section className='sectionFormulario'>
-            <label htmlFor='contenido' className='labelForm'>
-              Contenido
+            <label htmlFor='tareas' className='labelForm'>
+              Tareas
             </label>
-            <textarea
-              minLength={2}
+            <input
               type='text'
-              name='contenido'
-              className='contenido'
-              placeholder='Contenido'
-              required
+              name='tareas'
+              className='tareas'
+              placeholder='Tarea'
               onChange={handleChange}
-              defaultValue={values.contenido}
+              value={values.tareas}
             />
-            {errors.contenido && <span className='errors'>{errors.contenido}</span>}
+            <samp>* Agrega tareas nuevas separando con un .</samp>
+            {values.tareas.length > 0 && (
+              <ul className='tareasList'>
+                {values.tareas.split('.').map(
+                  (tarea, index) =>
+                    tarea.trim() && (
+                      <li key={index}>
+                        <input
+                          defaultChecked={tareasCompletadas[index] || false}
+                          type='checkbox'
+                          onChange={() => handleCheckboxChange(index)}
+                        />
+                        {tarea.trim()}
+                      </li>
+                    )
+                )}
+              </ul>
+            )}
           </section>
         </main>
         <footer className='footerFormulario'>

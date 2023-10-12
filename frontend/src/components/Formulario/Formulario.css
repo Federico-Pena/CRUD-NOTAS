@@ -41,6 +41,9 @@
   gap: 0.5rem;
   position: relative;
 }
+.mainFormulario .sectionFormulario samp {
+  align-self: flex-end;
+}
 .sectionFormulario .labelForm {
   width: 100%;
 }
@@ -50,12 +53,27 @@
   padding: 0.5rem 1rem;
   font-size: 16px;
 }
-.sectionFormulario .contenido {
+.sectionFormulario .tareas {
   padding: 0.5rem 1rem;
   font-size: 16px;
   border-radius: 0.3rem;
   border: none;
-  resize: none;
+}
+.sectionFormulario .tareasList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.sectionFormulario .tareasList li {
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+  border-radius: 0.3rem;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 .sectionFormulario .errors {
   color: red;

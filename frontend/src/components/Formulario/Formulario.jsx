@@ -5,14 +5,14 @@ import useForm from '../../Hooks/Formulario/useForm'
 import { UserContext } from '../../Context/UserContext'
 const initialValues = {
   titulo: '',
-  contenido: ''
+  tareas: ''
 }
 const validationRules = {
   titulo: {
     required: true,
     message: 'El titulo es requerido'
   },
-  contenido: { required: true, message: 'El contenido es requerido' }
+  tareas: { required: true, message: 'El contenido es requerido' }
 }
 function Formulario({ agregarNuevaNota }) {
   const [error, setError] = useState('')
@@ -26,15 +26,18 @@ function Formulario({ agregarNuevaNota }) {
     e.preventDefault()
     const res = validateForm()
     if (res) {
-      const { titulo, contenido } = values
+      const { titulo, tareas } = values
       let nota = {
         titulo: titulo.trim(),
-        contenido: contenido.trim()
+        tareas: tareas
+          .split('.')
+          .map((tarea) => ({ tareaTitulo: tarea.trim(), tareaCompletada: false }))
       }
       try {
         const { data, error } = await postNota(nota, user.token)
         if (data) {
           agregarNuevaNota(data)
+          resetForm()
         } else throw new Error(error)
       } catch (error) {
         setError('Error al guardar nota')
@@ -42,9 +45,8 @@ function Formulario({ agregarNuevaNota }) {
           setError('')
         }, 2000)
       }
-      resetForm()
     } else {
-      return
+      setError('Campos inválidos')
     }
   }
   return (
@@ -72,20 +74,25 @@ function Formulario({ agregarNuevaNota }) {
           {errors.titulo && <span className='errors'>{errors.titulo}</span>}
         </section>
         <section className='sectionFormulario'>
-          <label htmlFor='contenido' className='labelForm'>
-            Contenido
+          <label htmlFor='tareas' className='labelForm'>
+            Tareas
           </label>
-          <textarea
-            minLength={2}
+          <input
             type='text'
-            name='contenido'
-            className='contenido'
-            placeholder='Contenido'
-            required
+            name='tareas'
+            className='tareas'
+            placeholder='Sacar el perro. Comprar fruta. etc.'
             onChange={handleChange}
-            value={values.contenido}
+            value={values.tareas}
           />
-          {errors.contenido && <span className='errors'>{errors.contenido}</span>}
+          <samp>* Agrega tareas nuevas separando con un .</samp>
+          {values.tareas.length > 0 && (
+            <ul className='tareasList'>
+              {values.tareas
+                .split('. ')
+                .map((tarea, index) => tarea.trim() && <li key={index}>{tarea.trim()}</li>)}
+            </ul>
+          )}
         </section>
       </main>
 

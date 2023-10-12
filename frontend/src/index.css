@@ -10,6 +10,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+@font-face {
+  font-family: Cascadia;
+  src: url('../public/assets/fuente/CascadiaCode.woff2');
+  font-display: swap;
+}
 * {
   margin: 0;
   padding: 0;
@@ -21,8 +26,13 @@ body {
   display: grid;
   place-content: center;
   min-height: 100vh;
+  font-family: Cascadia, system-ui, 'Open Sans', sans-serif;
 }
 
+h1,
+h2 {
+  font-family: system-ui, 'Open Sans', sans-serif;
+}
 button {
   border-radius: 8px;
   border: 1px solid transparent;

@@ -3,7 +3,6 @@ import { useState } from 'react'
 const useForm = (initialValues, validationRules) => {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
-
   const handleChange = (e) => {
     const { name, value } = e.target
     setValues((prevValues) => ({ ...prevValues, [name]: value }))
@@ -11,7 +10,6 @@ const useForm = (initialValues, validationRules) => {
       validateField(name, value)
     }
   }
-
   const validateField = (name, value) => {
     const rule = validationRules[name]
     if (value.trim().length < 2) {

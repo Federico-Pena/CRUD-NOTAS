@@ -20,11 +20,12 @@ function Nota({ nota, openForm, quitarBorrada, marcarCompletada }) {
     window.scrollTo(0, 0)
     openForm(nota)
   }
-  const editarCompletada = async (check) => {
+  const editarCompletada = async (index, check) => {
+    const nuevasTareas = [...nota.tareas]
+    nuevasTareas[index].tareaCompletada = check
     const notaNueva = {
       titulo: nota.titulo,
-      contenido: nota.contenido,
-      completada: check
+      tareas: nuevasTareas
     }
     const { data, error } = await putNota(notaNueva, nota._id, user.token)
     if (data) {
@@ -42,20 +43,27 @@ function Nota({ nota, openForm, quitarBorrada, marcarCompletada }) {
   return (
     <>
       {mensaje && <Toast mensaje={mensaje} setMensaje={setMensaje} />}
-      <article className={`containerNota ${nota.completada ? 'completada' : ''}`}>
+      <article
+        className={`containerNota ${
+          nota.tareas.every((tarea) => tarea.tareaCompletada) ? 'completada' : ''
+        }`}>
         <header className='tituloYbotonesNota'>
-          <input
-            className='completadaCheck'
-            type='checkbox'
-            defaultChecked={nota.completada}
-            name='completada'
-            onChange={(e) => editarCompletada(e.target.checked)}
-          />
           <h3>{nota.titulo}</h3>
           <AiOutlineEdit onClick={editarNotas} className='btnEditar' />
           <AiOutlineDelete id={nota._id} onClick={borrarNotas} className='btnBorrar' />
         </header>
         <main className='contenido'>
+          {nota.tareas.map((tarea, index) => (
+            <div key={index} className={`tarea ${tarea.tareaCompletada ? 'completada' : ''}`}>
+              <input
+                className='checkTarea'
+                type='checkbox'
+                defaultChecked={tarea.tareaCompletada}
+                onChange={(e) => editarCompletada(index, e.target.checked)}
+              />
+              <p>{tarea.tareaTitulo}</p>
+            </div>
+          ))}
           <p>{nota.contenido}</p>
         </main>
         <footer className='fechas'>

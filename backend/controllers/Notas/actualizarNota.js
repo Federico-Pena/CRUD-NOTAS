@@ -3,8 +3,8 @@ import NotasSchema from '../../models/nota.js'
 export const actualizarNota = async (req, res) => {
   try {
     const id = req.params.id
-    const { titulo, contenido, completada } = req.body
-    const notaEditada = { titulo, contenido, completada }
+    const { titulo, tareas } = req.body
+    const notaEditada = { titulo, tareas }
     const nota = await NotasSchema.findByIdAndUpdate(id, notaEditada, {
       new: true
     })
