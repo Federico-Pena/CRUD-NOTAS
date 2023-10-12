@@ -11,10 +11,10 @@ const PORT = process.env.PORT || 4000
 const app = express()
 const optionsCors = {
   origin: ['https://tareas-finanzas.vercel.app', 'http://localhost:5173'],
-  methods: ['GET', 'PUT', 'POST', 'DELETE'],
-  'Cache-control': [`public, max-age=${0}`, 'no-store']
+  methods: ['GET', 'PUT', 'POST', 'DELETE']
 }
 app.disable('x-powered-by')
+app.use(setCache)
 app.use(express.json())
 app.use(cors(optionsCors))
 app.use(express.static(resolve('./frontend', 'dist')))
