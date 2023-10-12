@@ -14,9 +14,9 @@ const optionsCors = {
   methods: ['GET', 'PUT', 'POST', 'DELETE']
 }
 app.disable('x-powered-by')
+app.use(setCache)
 app.use(express.json())
 app.use(cors(optionsCors))
-app.use(setCache)
 app.use(express.static(resolve('./frontend', 'dist')))
 app.use(userRoutes)
 app.use(authMiddleware)
