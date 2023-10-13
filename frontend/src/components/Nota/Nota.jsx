@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { calcularDiferenciaTiempo } from '../../helpers/calcularDiferenciaTiempo'
 import { putNota } from '../../services/putNota'
 import './Nota.css'
@@ -30,7 +30,10 @@ function Nota({ nota, openForm, quitarBorrada, marcarCompletada }) {
     const { data, error } = await putNota(notaNueva, nota._id, user.token)
     if (data) {
       marcarCompletada(data)
-      setMensaje(`Nuevo estado ${check ? 'Completada' : 'Pendiente'}`)
+      const terminada = notaNueva.tareas.every((tarea) => tarea.tareaCompletada === true)
+      if (terminada) {
+        setMensaje(`Tarea completada`)
+      }
     }
     if (error) {
       setMensaje(error)

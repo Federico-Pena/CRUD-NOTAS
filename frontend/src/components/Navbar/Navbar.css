@@ -41,12 +41,50 @@ body.dark .liA:after {
 .nav .ulNav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
   list-style: none;
   width: 100%;
 }
+.ulNav .btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid transparent;
+  gap: 1rem;
+}
+.ulNav .btns button {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  font-size: 12px;
+  right: 0;
+  flex: auto;
+}
+.ulNav .btns span {
+  width: 100%;
+  text-align: center;
+}
+.ulNav .btns:hover span {
+  opacity: 0;
+}
+.ulNav .btns .btnLogOut {
+  transform: translate(-120%);
+}
+.ulNav .btns .btnEliminarCuenta {
+  transform: translate(10%);
+}
+.ulNav .btns:hover .btnLogOut {
+  opacity: 1;
+  position: absolute;
+}
+.ulNav .btns:hover .btnEliminarCuenta {
+  opacity: 1;
+  position: absolute;
+}
+
 .ulNav .liA {
   text-decoration: none;
   color: #fff;
@@ -168,6 +206,34 @@ body.dark .liA:after {
     justify-content: center;
     align-items: center;
     gap: 5rem;
+  }
+  .ulNav .btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid transparent;
+    gap: 1rem;
+  }
+  .ulNav .btns button {
+    position: relative;
+  }
+  .ulNav .btns .btnLogOut {
+    transform: translate(0%);
+    position: relative;
+  }
+  .ulNav .btns .btnEliminarCuenta {
+    transform: translate(0%);
+    position: relative;
+  }
+  .ulNav .btns:hover .btnLogOut {
+    position: relative;
+    opacity: 1;
+  }
+  .ulNav .btns:hover .btnEliminarCuenta {
+    position: relative;
+    opacity: 1;
   }
   .headerNav .logo-principal {
     position: relative;

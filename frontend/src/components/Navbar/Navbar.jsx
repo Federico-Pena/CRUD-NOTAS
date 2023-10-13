@@ -4,10 +4,11 @@ import { MenuOpen } from '../Icons/MenuOpen'
 import { MenuClosed } from '../Icons/MenuClosed'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext'
+import { User } from '../Icons/User'
 
 export const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false)
-  const { user, logoutUser } = useContext(UserContext)
+  const { user, logoutUser, deleteUser } = useContext(UserContext)
 
   return (
     <header className='headerNav'>
@@ -38,9 +39,15 @@ export const Navbar = () => {
               Ganancias
             </Link>
           </li>
-          <li>
-            <button className='btnLogOut' onClick={logoutUser}>
+          <li className='btns'>
+            <span>
+              <User />
+            </span>
+            <button title='Cerrar Sesión' className='btnLogOut' onClick={logoutUser}>
               Cerrar sesión
+            </button>
+            <button title='Eliminar cuenta' className='btnEliminarCuenta' onClick={deleteUser}>
+              Eliminar Cuenta
             </button>
           </li>
         </ul>

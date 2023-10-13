@@ -27,6 +27,7 @@ body {
   place-content: center;
   min-height: 100vh;
   font-family: Cascadia, system-ui, 'Open Sans', sans-serif;
+  position: relative;
 }
 
 h1,

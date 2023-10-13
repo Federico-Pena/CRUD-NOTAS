@@ -30,13 +30,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  max-height: 70vh;
-  overflow: auto;
-  position: relative;
 }
-.transactionArticle .listTransactions::-webkit-scrollbar {
-  width: 0;
-}
+
 .listTransactions .elementTransactions {
   width: 100%;
   padding: 1rem;
@@ -44,7 +39,9 @@
   background-color: #363636;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
+  gap: 1rem;
   view-timeline-name: --revealing-card;
   view-timeline-axis: block;
   animation-name: showAnimation;
@@ -56,7 +53,7 @@
 .elementTransactions.top {
   background-color: #1a1a1a;
   position: sticky;
-  top: 0;
+  top: 108px;
   z-index: 2;
 }
 .elementTransactions .mainTransaction {

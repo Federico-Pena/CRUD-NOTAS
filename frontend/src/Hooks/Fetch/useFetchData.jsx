@@ -25,6 +25,7 @@ const useFetchData = (url, opciones) => {
         }
         const response = await fetch(`${baseUrl}${url}`, options)
         const res = await response.json()
+        console.log(res)
         if (response.ok) {
           setData(res.data)
         } else {

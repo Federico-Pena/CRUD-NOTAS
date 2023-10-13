@@ -7,10 +7,10 @@ import { MensajeProvider } from './Context/ModalContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <UserProvider>
-      <MensajeProvider>
+    <MensajeProvider>
+      <UserProvider>
         <App />
-      </MensajeProvider>
-    </UserProvider>
+      </UserProvider>
+    </MensajeProvider>
   </React.StrictMode>
 )

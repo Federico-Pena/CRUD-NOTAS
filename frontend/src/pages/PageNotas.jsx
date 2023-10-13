@@ -122,9 +122,7 @@ export const PageNotas = () => {
           {form && <Formulario agregarNuevaNota={agregarNuevaNota} />}
         </div>
 
-        {error ? (
-          <h2>{error}</h2>
-        ) : (
+        {
           <div className='notasContainer'>
             {loading ? (
               <Spinner />
@@ -165,7 +163,7 @@ export const PageNotas = () => {
                 )
               })}
           </div>
-        )}
+        }
       </main>
     </>
   )

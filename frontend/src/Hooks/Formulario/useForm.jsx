@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { validateField } from './validateField'
 
 const useForm = (initialValues, validationRules) => {
   const [values, setValues] = useState(initialValues)
@@ -7,31 +8,12 @@ const useForm = (initialValues, validationRules) => {
     const { name, value } = e.target
     setValues((prevValues) => ({ ...prevValues, [name]: value }))
     if (validationRules[name]) {
-      validateField(name, value)
+      validateField(name, value, setErrors, validationRules)
     }
   }
-  const validateField = (name, value) => {
-    const rule = validationRules[name]
-    if (value.trim().length < 2) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: 'Mínimo 2 caracteres'
-      }))
-      return
-    }
-    if (rule.required && !value.trim().length) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: rule.message || 'Este campo es requerido'
-      }))
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }))
-    }
-  }
-
   const validateForm = () => {
     Object.keys(validationRules).forEach((name) => {
-      validateField(name, values[name])
+      validateField(name, values[name], setErrors, validationRules)
     })
     return Object.keys(errors).every((key) => !errors[key])
   }
