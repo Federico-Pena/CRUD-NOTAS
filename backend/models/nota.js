@@ -8,7 +8,6 @@ const Nota = new Schema(
         tareaCompletada: { type: Boolean, default: false }
       }
     ],
-    completada: { type: Boolean, default: false },
     usuario: {
       type: Schema.Types.ObjectId,
       ref: 'User',

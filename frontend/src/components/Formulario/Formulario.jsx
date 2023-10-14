@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import './Formulario.css'
-import { postNota } from '../../services/postNota'
 import useForm from '../../Hooks/Formulario/useForm'
-import { UserContext } from '../../Context/UserContext'
+import { ModalContext } from '../../Context/ModalContext'
+import { useNotas } from '../../Hooks/Notas/useNotas'
 const initialValues = {
   titulo: '',
   tareas: ''
@@ -14,14 +14,14 @@ const validationRules = {
   },
   tareas: { required: true, message: 'El contenido es requerido' }
 }
-function Formulario({ agregarNuevaNota }) {
-  const [error, setError] = useState('')
-  const { user } = useContext(UserContext)
-
+function Formulario({ setForm }) {
+  const { setMensaje } = useContext(ModalContext)
   const { values, errors, validateForm, handleChange, resetForm } = useForm(
     initialValues,
     validationRules
   )
+  const url = '/api/notas'
+  const { postData } = useNotas(url)
   const submitForm = async (e) => {
     e.preventDefault()
     const res = validateForm()
@@ -34,19 +34,16 @@ function Formulario({ agregarNuevaNota }) {
           .map((tarea) => ({ tareaTitulo: tarea.trim(), tareaCompletada: false }))
       }
       try {
-        const { data, error } = await postNota(nota, user.token)
-        if (data) {
-          agregarNuevaNota(data)
+        const res = await postData(nota)
+        if (res) {
+          setForm()
           resetForm()
-        } else throw new Error(error)
+        }
       } catch (error) {
-        setError('Error al guardar nota')
-        setTimeout(() => {
-          setError('')
-        }, 2000)
+        setMensaje('Error al guardar nota')
       }
     } else {
-      setError('Campos inválidos')
+      setMensaje('Campos inválidos')
     }
   }
   return (
@@ -55,8 +52,6 @@ function Formulario({ agregarNuevaNota }) {
         <h2>Agrega una nota</h2>
       </header>
       <main className='mainFormulario'>
-        {error && <span className='errors'>{error}</span>}
-
         <section className='sectionFormulario'>
           <label htmlFor='titulo' className='labelForm'>
             Titulo

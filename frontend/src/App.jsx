@@ -6,6 +6,7 @@ import { FormLoginRegister } from './components/FormLoginRegister/FormLoginRegis
 import { PageNotas } from './pages/PageNotas'
 import Dashboard from './pages/Transactions/Transactions'
 import { Navbar } from './components/Navbar/Navbar'
+import { NotasProvider } from './Context/NotasContext'
 function App() {
   const { user } = useContext(UserContext)
 
@@ -14,7 +15,18 @@ function App() {
       <BrowserRouter>
         {user ? <Navbar /> : null}
         <Routes>
-          <Route path={'/'} element={user ? <PageNotas /> : <FormLoginRegister />} />
+          <Route
+            path={'/'}
+            element={
+              user ? (
+                <NotasProvider>
+                  <PageNotas />
+                </NotasProvider>
+              ) : (
+                <FormLoginRegister />
+              )
+            }
+          />
           <Route path={'/Ganancias'} element={user ? <Dashboard /> : <FormLoginRegister />} />
         </Routes>
       </BrowserRouter>

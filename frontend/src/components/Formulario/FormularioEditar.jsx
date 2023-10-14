@@ -5,6 +5,8 @@ import useForm from '../../Hooks/Formulario/useForm'
 import { UserContext } from '../../Context/UserContext'
 import { ModalContext } from '../../Context/ModalContext'
 import { Toast } from '../Toast/Toast'
+import { ACTIONS, NotasContext } from '../../Context/NotasContext'
+import { useNotas } from '../../Hooks/Notas/useNotas'
 const validationRules = {
   titulo: {
     required: true,
@@ -12,13 +14,12 @@ const validationRules = {
   },
   tareas: { required: true, message: 'El contenido es requerido' }
 }
-function FormularioEditar({ nota, actualizarNotas }) {
+function FormularioEditar({ nota, setForm }) {
   const initialValues = {
     titulo: nota.titulo,
     tareas: nota.tareas.map((nota) => nota.tareaTitulo).join('. ')
   }
   const { values, errors, validateForm, handleChange } = useForm(initialValues, validationRules)
-  const { user } = useContext(UserContext)
   const { mensaje, setMensaje } = useContext(ModalContext)
   const [tareasCompletadas, setTareasCompletadas] = useState(
     nota.tareas.map((tarea) => tarea.tareaCompletada)
@@ -29,7 +30,8 @@ function FormularioEditar({ nota, actualizarNotas }) {
     newTareasCompletadas[index] = !newTareasCompletadas[index]
     setTareasCompletadas(newTareasCompletadas)
   }
-
+  const url = '/api/notas'
+  const { putData } = useNotas(url)
   const submitForm = async (e) => {
     e.preventDefault()
     const res = validateForm()
@@ -37,6 +39,7 @@ function FormularioEditar({ nota, actualizarNotas }) {
       const { _id } = nota
       const { titulo, tareas } = values
       let notaNueva = {
+        _id,
         titulo: titulo.trim(),
         tareas: tareas.split('. ').map((tarea, index) => ({
           tareaTitulo: tarea.trim(),
@@ -44,17 +47,18 @@ function FormularioEditar({ nota, actualizarNotas }) {
         }))
       }
       try {
-        const { data, error } = await putNota(notaNueva, _id, user.token)
-        if (data) {
-          actualizarNotas(data)
+        const res = await putData(notaNueva)
+        if (res) {
           e.target.reset()
-          setMensaje('Nota actualizada')
-        } else throw new Error(error)
+          setForm()
+        } else {
+          throw new Error()
+        }
       } catch (error) {
         setMensaje('Error al editar nota')
       }
     } else {
-      return
+      setMensaje('Campos inválidos')
     }
   }
 

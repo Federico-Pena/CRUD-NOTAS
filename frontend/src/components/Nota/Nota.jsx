@@ -1,20 +1,18 @@
 import { useContext } from 'react'
 import { calcularDiferenciaTiempo } from '../../helpers/calcularDiferenciaTiempo'
-import { putNota } from '../../services/putNota'
 import './Nota.css'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
-import { deleteNota } from '../../services/deleteNota'
-import { UserContext } from '../../Context/UserContext'
 import { ModalContext } from '../../Context/ModalContext'
 import { Toast } from '../Toast/Toast'
-function Nota({ nota, openForm, quitarBorrada, marcarCompletada }) {
-  const { user } = useContext(UserContext)
+import { useNotas } from '../../Hooks/Notas/useNotas'
+
+function Nota({ nota, openForm }) {
   const { mensaje, setMensaje } = useContext(ModalContext)
+  const { deleteData, putData } = useNotas(`/api/notas`)
 
   const borrarNotas = async (e) => {
     const id = e.target.id
-    const res = await deleteNota(id, user.token)
-    quitarBorrada(res)
+    await deleteData(id)
   }
   const editarNotas = () => {
     window.scrollTo(0, 0)
@@ -24,20 +22,11 @@ function Nota({ nota, openForm, quitarBorrada, marcarCompletada }) {
     const nuevasTareas = [...nota.tareas]
     nuevasTareas[index].tareaCompletada = check
     const notaNueva = {
+      _id: nota._id,
       titulo: nota.titulo,
       tareas: nuevasTareas
     }
-    const { data, error } = await putNota(notaNueva, nota._id, user.token)
-    if (data) {
-      marcarCompletada(data)
-      const terminada = notaNueva.tareas.every((tarea) => tarea.tareaCompletada === true)
-      if (terminada) {
-        setMensaje(`Tarea completada`)
-      }
-    }
-    if (error) {
-      setMensaje(error)
-    }
+    await putData(notaNueva)
   }
 
   const fechaCreado = new Date(nota.createdAt)

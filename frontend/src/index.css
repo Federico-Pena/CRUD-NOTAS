@@ -12,7 +12,7 @@
 }
 @font-face {
   font-family: Cascadia;
-  src: url('../public/assets/fuente/CascadiaCode.woff2');
+  src: url('/assets/fuente/CascadiaCode.woff2');
   font-display: swap;
 }
 * {
