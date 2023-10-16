@@ -1,5 +1,4 @@
-import { createContext, useEffect, useReducer } from 'react'
-import { useNotas } from '../Hooks/Notas/useNotas'
+import { createContext, useReducer } from 'react'
 // Definir acciones para el CRUD
 export const ACTIONS = {
   ADD_ITEMS: 'ADD_ITEMS',

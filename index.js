@@ -6,7 +6,6 @@ import { resolve } from 'path'
 import userRoutes from './backend/routes/user.routes.js'
 import authMiddleware from './backend/Middleware/authMiddleware.js'
 import { setCache } from './backend/Middleware/cache.js'
-import transactionRoutes from './backend/routes/transactions.routes.js'
 const PORT = process.env.PORT || 4000
 
 const app = express()
@@ -22,8 +21,6 @@ app.use(express.static(resolve('./frontend', 'dist')))
 app.use(userRoutes)
 app.use(authMiddleware)
 app.use(notasRoutes)
-app.use(transactionRoutes)
-
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}/`)
 })

@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { UserContext } from './Context/UserContext'
 import { FormLoginRegister } from './components/FormLoginRegister/FormLoginRegister'
 import { PageNotas } from './pages/PageNotas'
-import Dashboard from './pages/Transactions/Transactions'
 import { Navbar } from './components/Navbar/Navbar'
 import { NotasProvider } from './Context/NotasContext'
 function App() {
@@ -27,7 +26,6 @@ function App() {
               )
             }
           />
-          <Route path={'/Ganancias'} element={user ? <Dashboard /> : <FormLoginRegister />} />
         </Routes>
       </BrowserRouter>
     </main>

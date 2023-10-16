@@ -3,8 +3,9 @@ import { validateField } from './validateField'
 
 const useForm = (initialValues, validationRules) => {
   const [values, setValues] = useState(initialValues)
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({ error: 'campos vacíos' })
   const handleChange = (e) => {
+    setErrors({})
     const { name, value } = e.target
     setValues((prevValues) => ({ ...prevValues, [name]: value }))
     if (validationRules[name]) {
