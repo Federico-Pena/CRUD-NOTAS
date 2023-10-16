@@ -1,3 +1,3 @@
 export const baseUrl = import.meta.env.PROD
-  ? 'https://tareas-finanzas.vercel.app'
+  ? 'https://lista-tareas-app.vercel.app'
   : 'http://localhost:4000'
