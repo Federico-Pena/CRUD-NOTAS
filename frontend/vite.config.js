@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       strategies: 'network-first',
       manifest: {
-        name: 'Tareas y Finanzas',
-        short_name: 'Tareas y Finanzas',
+        name: 'Lista Tareas',
+        short_name: 'Lista Tareas',
         theme_color: '#242424',
         background_color: '#242424',
         display: 'standalone',
